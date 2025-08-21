@@ -6,11 +6,22 @@ export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
     const dateFilter = searchParams.get('date');
+    const searchQuery = searchParams.get('search');
     
     let query = `
       SELECT * FROM events 
       WHERE date >= NOW() 
     `;
+    
+    // Apply search filter
+    if (searchQuery && searchQuery.trim() !== '') {
+      const searchTerm = searchQuery.trim().toLowerCase();
+      query += `AND (
+        LOWER(title) LIKE '%${searchTerm}%' OR 
+        LOWER(description) LIKE '%${searchTerm}%' OR 
+        LOWER(location) LIKE '%${searchTerm}%'
+      )`;
+    }
     
     // Apply date filters
     if (dateFilter) {
