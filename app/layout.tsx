@@ -1,11 +1,4 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
-
-// Use Inter font from Google fonts instead of Geist
-const inter = Inter({ 
-  subsets: ['latin'],
-  variable: '--font-inter',
-})
 
 export const metadata = {
   title: 'Vancouver Free Events',
@@ -19,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="font-sans">
         {children}
       </body>
     </html>
